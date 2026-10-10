@@ -2213,6 +2213,102 @@ input,select,textarea{min-width:0;}
 .checkout-remove{padding:0;border:0;background:transparent;color:var(--ink3);font-size:.72rem;font-weight:500;cursor:pointer;line-height:1.2;}
 .checkout-remove:hover{color:#c0392b;}
 </style>
+<style id="craftshan-motion-upgrade">
+:root {
+  --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* 1. NAV: underline grows from the center (.nav-links a, ~line 142) */
+body .nav .nav-links a {
+  position: relative;
+  transition: color .3s var(--ease-premium);
+}
+body .nav .nav-links a::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -6px;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .35s var(--ease-premium);
+}
+body .nav .nav-links a:hover::after,
+body .nav .nav-links a.active::after { transform: scaleX(1); }
+
+/* 2. PRODUCT CARDS (.p-card, ~line 210): lift, gold border, soft glow */
+body .p-card {
+  transition: transform .4s var(--ease-premium),
+              border-color .4s var(--ease-premium),
+              box-shadow .4s var(--ease-premium);
+}
+body .p-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 12px 30px rgba(232, 160, 32, .18);
+}
+body .p-card:hover .p-thumb svg,
+body .p-card:hover .p-thumb img { transform: scale(1.06); }
+body .p-thumb svg,
+body .p-thumb img { transition: transform .5s var(--ease-premium); }
+
+/* 3. GOLD BUTTONS (.btn-gold ~line 116, .btn-buy-now, .btn-checkout) */
+body .btn-gold,
+body .btn-buy-now,
+body .btn-checkout {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  transition: transform .4s var(--ease-premium), box-shadow .4s var(--ease-premium), background .3s;
+}
+body .btn-gold::before,
+body .btn-buy-now::before,
+body .btn-checkout::before {
+  content: '';
+  position: absolute; inset: 0;
+  z-index: -1;
+  background: linear-gradient(to right, var(--gold), var(--gold-lt));
+  opacity: 0;
+  transition: opacity .4s var(--ease-premium);
+}
+body .btn-gold:hover,
+body .btn-buy-now:hover,
+body .btn-checkout:hover {
+  transform: translateY(-1px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(232, 160, 32, .35);
+}
+body .btn-gold:hover::before,
+body .btn-buy-now:hover::before,
+body .btn-checkout:hover::before { opacity: 1; }
+
+/* 4. HERO reveal on the home page (.hero-inner > div, ~line 2426) */
+@keyframes craftshanReveal {
+  from { opacity: 0; transform: translateY(18px) scale(.97); }
+  to   { opacity: 1; transform: none; }
+}
+body .hero .hero-eyebrow,
+body .hero h1,
+body .hero .hero-desc,
+body .hero .hero-actions,
+body .hero .hero-meta,
+body .hero .hero-visual {
+  animation: craftshanReveal .9s var(--ease-premium) both;
+}
+body .hero h1          { animation-delay: .08s; }
+body .hero .hero-desc  { animation-delay: .16s; }
+body .hero .hero-actions { animation-delay: .24s; }
+body .hero .hero-meta  { animation-delay: .32s; }
+body .hero .hero-visual { animation-delay: .2s; }
+
+/* 5. Respect reduced-motion settings (your file has no such rule yet) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: .01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .01ms !important;
+  }
+}
+</style>
 </head>
 <body>
 
