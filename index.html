@@ -2308,7 +2308,29 @@ body .hero .hero-visual { animation-delay: .2s; }
     transition-duration: .01ms !important;
   }
 }
+   @supports (animation-timeline: view()) {
+  @keyframes craftshanCardIn {
+    from { opacity: 0; transform: translateY(40px) scale(.96); }
+    to   { opacity: 1; transform: none; }
+  }
+  body .p-grid .p-card {
+    animation: craftshanCardIn linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
 </style>
+@supports (animation-timeline: view()) {
+  @keyframes craftshanCardIn {
+    from { opacity: 0; transform: translateY(40px) scale(.96); }
+    to   { opacity: 1; transform: none; }
+  }
+  body .p-grid .p-card {
+    animation: craftshanCardIn linear both;
+    animation-timeline: view();
+    animation-range: entry 0% entry 60%;
+  }
+}
 </head>
 <body>
 
